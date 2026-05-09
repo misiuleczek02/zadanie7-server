@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+echo "[pre-push] golangci-lint"
+if ! command -v golangci-lint >/dev/null 2>&1; then
+  echo "golangci-lint not found. Install: https://golangci-lint.run/usage/install/"
+  exit 1
+fi
+golangci-lint run ./...
+
+echo "[pre-push] go test ./..."
+go test ./...
+
+echo "[pre-push] OK"
